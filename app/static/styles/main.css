@@ -139,6 +139,63 @@ body {
     color: #1d539f;
 }
 
+.map {
+    max-width: 1000px;
+    margin: 0 auto 60px auto;
+    padding: 0 20px;
+    text-align: center;
+}
+
+.map h2 {
+    font-size: 32px;
+    color: #1d539f;
+    margin-bottom: 30px;
+}
+
+.map-wrap {
+    position: relative;
+    display: inline-block;
+    line-height: 0;
+}
+
+.map-wrap img {
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.map-pin {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    background-color: #e53935;
+    border: 2px solid white;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+}
+
+.map-pin .map-label {
+    position: absolute;
+    bottom: 130%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #1d539f;
+    color: white;
+    font-size: 12px;
+    line-height: 1;
+    padding: 4px 8px;
+    border-radius: 4px;
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.15s ease;
+    pointer-events: none;
+}
+
+.map-pin:hover .map-label {
+    opacity: 1;
+}
+
 .banner {
     padding: 20px 0px 50px 0px;
     height: 150px;
