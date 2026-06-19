@@ -40,6 +40,16 @@ education = [
     },
 ]
 
+# left/top are percentages on an equirectangular world map:
+# left = (lon + 180) / 360, top = (90 - lat) / 180
+places = [
+    {"name": "Nepal", "left": 73.7, "top": 34.6},
+    {"name": "New York", "left": 29.4, "top": 27.4},
+    {"name": "Los Angeles", "left": 17.2, "top": 31.1},
+    {"name": "Indonesia", "left": 79.7, "top": 53.5},
+    {"name": "India", "left": 71.4, "top": 34.1},
+]
+
 
 @app.context_processor
 def inject_pages():
@@ -71,4 +81,14 @@ def hobbies():
         title="Hobbies",
         url=os.getenv("URL"),
         hobbies=hobbies_list,
+    )
+
+
+@app.route('/map')
+def map():
+    return render_template(
+        'map.html',
+        title="Places I've Visited",
+        url=os.getenv("URL"),
+        places=places,
     )
