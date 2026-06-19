@@ -59,5 +59,16 @@
             {% endfor %}
         </ul>
     </section>
+
+    <section class="education">
+        <h2>Education</h2>
+        <ul>
+            {% for school in education %}
+            <li>
+                <strong>{{ school.degree }}</strong> — {{ school.org }} ({{ school.period }})
+            </li>
+            {% endfor %}
+        </ul>
+    </section>
 </body>
 </html>
