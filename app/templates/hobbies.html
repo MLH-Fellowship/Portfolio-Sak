@@ -28,8 +28,9 @@
                 </div>
             </a>
             <nav class="nav-links">
-                <a href="/">Home</a>
-                <a href="/hobbies">Hobbies</a>
+                {% for page in pages %}
+                <a href="{{ page.url }}">{{ page.name }}</a>
+                {% endfor %}
             </nav>
         </div>
     </header>

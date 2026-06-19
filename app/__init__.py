@@ -41,6 +41,18 @@ education = [
 ]
 
 
+@app.context_processor
+def inject_pages():
+    pages = []
+    for rule in app.url_map.iter_rules():
+        if rule.endpoint == "static":
+            continue
+        name = "Home" if rule.endpoint == "index" else rule.endpoint.capitalize()
+        pages.append({"name": name, "url": str(rule)})
+    pages.sort(key=lambda page: page["url"])
+    return dict(pages=pages)
+
+
 @app.route('/')
 def index():
     return render_template(
