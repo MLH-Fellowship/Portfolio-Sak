@@ -51,17 +51,12 @@
     <section class="experience">
         <h2>Work Experience</h2>
         <ul>
+            {% for job in experiences %}
             <li>
-                <strong>Online Instructor</strong> — iD Tech (June 2026 – present)
-                <span>Teaching Blender, Python, Arduino, and Scratch.</span>
+                <strong>{{ job.role }}</strong> — {{ job.org }} ({{ job.period }})
+                {% if job.detail %}<span>{{ job.detail }}</span>{% endif %}
             </li>
-            <li>
-                <strong>MLH x Meta Fellow</strong> — MLH (June 2026 – September 2026)
-            </li>
-            <li>
-                <strong>Research Assistant</strong> — University of Southern Mississippi (January 2026 – present)
-                <span>Research in agentic AI.</span>
-            </li>
+            {% endfor %}
         </ul>
     </section>
 </body>

@@ -37,18 +37,12 @@
     <section class="hobbies">
         <h2>Hobbies</h2>
         <div class="hobby-grid">
+            {% for hobby in hobbies %}
             <div class="hobby-card">
-                <img src="./static/img/Rubiks_Cube.jpg" alt="Rubik's Cube">
-                <h3>Rubik's Cube</h3>
+                <img src="./static/img/{{ hobby.image }}" alt="{{ hobby.name }}">
+                <h3>{{ hobby.name }}</h3>
             </div>
-            <div class="hobby-card">
-                <img src="./static/img/running.png" alt="Running">
-                <h3>Running</h3>
-            </div>
-            <div class="hobby-card">
-                <img src="./static/img/hollywood_hike1.jpg" alt="Hiking">
-                <h3>Hiking</h3>
-            </div>
+            {% endfor %}
         </div>
     </section>
 </body>
