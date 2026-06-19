@@ -77,6 +77,51 @@ body {
     height: 200px;
 }
 
+.hobbies {
+    max-width: 1000px;
+    margin: 0 auto 60px auto;
+    padding: 0 20px;
+    text-align: center;
+}
+
+.hobbies h2 {
+    font-size: 32px;
+    color: #1d539f;
+    margin-bottom: 30px;
+}
+
+.hobby-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 24px;
+}
+
+.hobby-card {
+    background-color: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+}
+
+.hobby-card:hover {
+    transform: translateY(-5px);
+}
+
+.hobby-card img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    display: block;
+}
+
+.hobby-card h3 {
+    margin: 0;
+    padding: 16px;
+    font-size: 20px;
+    color: #1d539f;
+}
+
 .banner {
     padding: 20px 0px 50px 0px;
     height: 150px;
