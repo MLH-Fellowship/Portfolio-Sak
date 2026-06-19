@@ -32,6 +32,14 @@ hobbies_list = [
     {"name": "Hiking", "image": "hollywood_hike1.jpg"},
 ]
 
+education = [
+    {
+        "degree": "BSc in Computer Engineering",
+        "org": "University of Southern Mississippi",
+        "period": "2024 – 2028",
+    },
+]
+
 
 @app.route('/')
 def index():
@@ -40,6 +48,7 @@ def index():
         title="Sakshyam Sigdel",
         url=os.getenv("URL"),
         experiences=experiences,
+        education=education,
     )
 
 
