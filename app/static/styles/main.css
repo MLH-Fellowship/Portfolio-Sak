@@ -49,6 +49,23 @@ body {
     padding-right: 0px;
 }
 
+.nav-links {
+    text-align: center;
+    padding-bottom: 10px;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    font-weight: 700;
+    margin: 0 15px;
+    font-size: 18px;
+}
+
+.nav-links a:hover {
+    text-decoration: underline;
+}
+
 .profile {
     background-color: #1d539f !important;
     text-align: center;
