@@ -1,9 +1,31 @@
 import os
 from flask import Flask, render_template, request
 from dotenv import load_dotenv
+from peewee import *
+from playhouse.shortcuts import model_to_dict
+from datetime import datetime
 
 load_dotenv()
 app = Flask(__name__)
+mydb=MySQLDatabase(os.getenv("MYSQL_DATABASE"),
+    user=os.getenv("MYSQL_USER"),
+    password=os.getenv("MYSQL_PASSWORD"),
+    host=os.getenv("MYSQL_HOST"),
+    port=3306
+)
+
+class TimelinePost(Model): #model class defining how the tables loook like, used by peewee
+    name=CharField()
+    email=CharField()
+    content=TextField()
+    created_at=DateTimeField(default=datetime.now) #when an entry is created in the database filled automatically DateTimeField is from peewee, but the datetime needs  datetime is the imported class and now is it's method.  if from datetime import * was done instead, we would have to do datetime.datetime.now() we are pssing the fuction not calling it that's why we don't need to use () it's peewee has the name of the function it needs to call
+
+    class Meta: #where to create and manage that table
+        database=mydb
+print(mydb)
+mydb.connect()
+mydb.create_tables([TimelinePost])
+
 
 experiences = [
     {
@@ -92,3 +114,54 @@ def map():
         url=os.getenv("URL"),
         places=places,
     )
+
+@app.route('/timeline')
+def timeline():
+    return render_template(
+        'timeline.html',
+        title="Timeline",
+        url=os.getenv("URL"),
+    )
+
+@app.route('/api/timeline_post',methods=['POST']) # a decorator basically sees the next function that is defined, that next function is going to be called when the /api/timeline_post is called
+def post_time_line_post(): 
+    name=request.form['name']
+    email=request.form['email']
+    content=request.form['content']
+    timeline_post=TimelinePost.create(name=name, email=email, content=content) #add the thing to the database whatever gets posted and return to timeline post
+    return model_to_dict(timeline_post) #return to the client the timelineposet that was just created by converting to json. 
+
+@app.route('/api/timeline_post', methods=['GET'])
+def get_time_line_post():
+    id = request.args.get('id')
+    if id is not None: #cause id 0 can exist as well. 
+
+        try: 
+            return model_to_dict(TimelinePost.get_by_id(int(id)))
+        except TimelinePost.DoesNotExist:
+            return {"error": "Post not found"},404
+
+    return{
+        'timeline_posts':[ #dictionary with the value of a list containing all posts
+            model_to_dict(p)
+            for p in TimelinePost.select().order_by(TimelinePost.created_at.desc()) #get all ordered by latest first and put it in a dictionary
+        ]
+    }
+
+@app.route('/api/timeline_post', methods=['DELETE'])
+def timeline_post_delete():
+    id = request.args.get('id')
+    if id is not None: 
+        deleted=TimelinePost.delete_by_id(int(id))
+        if deleted:
+            return{
+                "message": "Post Deleted",
+                "id":int(id)
+            }
+
+    return{
+        "message": "Post Not Found"
+    }, 404
+
+    
+
