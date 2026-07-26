@@ -6,7 +6,7 @@ cd ~/Portfolio-Sak
 
 git fetch && git reset origin/main --hard
 
-docker compsose -f docker-compose.prod.yml down 
+docker compose -f docker-compose.prod.yml down 
 
 docker compose -f docker-compose.prod.yml up -d --build
 
