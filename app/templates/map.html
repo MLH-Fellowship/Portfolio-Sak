@@ -1,51 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "base.html" %}
 
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta property="og:title" content="Places I've Visited">
-    <meta property="og:description" content="Places I've Visited">
-    <meta property="og:url" content="{{ url }}">
+{% block og_description %}Places I've visited.{% endblock %}
 
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
-        rel="stylesheet">
-
-    <link lang='sass' rel="stylesheet" href="./static/styles/main.css">
-    <link rel='icon' href='./static/img/favicon.ico' type='image/x-icon' />
-    <title>{{ title }}</title>
-</head>
-
-<body>
-    <header class="nav-bar">
-        <div class="nav-content">
-            <a href="/">
-                <div class="nav-logo">
-                    <img src="./static/img/logo.svg" />
-                </div>
-            </a>
-            <nav class="nav-links">
-                {% for page in pages %}
-                <a href="{{ page.url }}">{{ page.name }}</a>
-                {% endfor %}
-            </nav>
-        </div>
-    </header>
-
-    <section class="map">
-        <h2>Places I've Visited</h2>
-        <div class="map-wrap">
-            <img src="./static/img/world-map.jpg" alt="World map">
-            {% for place in places %}
-            <span class="map-pin" style="left: {{ place.left }}%; top: {{ place.top }}%;" title="{{ place.name }}">
-                <span class="map-label">{{ place.name }}</span>
-            </span>
-            {% endfor %}
-        </div>
-    </section>
-</body>
-
-</html>
+{% block content %}
+<section class="section">
+    <div class="section-head">
+        <span class="section-num">01</span>
+        <h2 class="section-label">Places I've Visited</h2>
+    </div>
+    <div class="map-wrap">
+        <img src="{{ url_for('static', filename='img/world-map.jpg') }}" alt="World map"
+             width="2058" height="1036" decoding="async">
+        {% for place in places %}
+        <span class="map-pin" style="left: {{ place.left }}%; top: {{ place.top }}%;"
+              tabindex="0" title="{{ place.name }}">
+            <span class="map-label">{{ place.name }}</span>
+        </span>
+        {% endfor %}
+    </div>
+    <p class="map-legend">{{ places | length }} locations &middot; equirectangular projection</p>
+</section>
+{% endblock %}
