@@ -25,7 +25,7 @@ jobs:
           python-version: '3.9'  # Change to your desired Python version
 
       - name: Setup Python Virtual Environment
-        run: python -m venv python3-virtualenv
+        run: python -m venv .venv
 
       - name: Install Dependencies
         run: python3-virtualenv/bin/pip install -r requirements.txt
