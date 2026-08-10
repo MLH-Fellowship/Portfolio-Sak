@@ -11,6 +11,8 @@ jobs:
     name: "Deploy to VPS"
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
+
       - name: Configure SSH
         run: |
           mkdir -p ~/.ssh/
@@ -29,4 +31,6 @@ jobs:
           SSH_IP: ${{ secrets.SSH_IP }}
 
       - name: Deploy site
-        run: ssh -T my-vps '~/redeploy-site.sh'
+        # Run the version of the script that lives in this repo instead of the
+        # hand-placed ~/redeploy-site.sh on the VPS, which needs a TTY.
+        run: ssh -T my-vps 'bash -s' < redeploy-site.sh
