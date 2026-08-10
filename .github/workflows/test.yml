@@ -1,9 +1,8 @@
 name: Run Tests
 
 on:
-  push:
-    branches:
-      - main
+  # Pushes to main are covered by the `test` job inside deploy.yml, so this
+  # workflow only guards pull requests.
   pull_request:
     branches:
       - main
@@ -22,7 +21,7 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.9'  # Change to your desired Python version
+          python-version: '3.9'  
 
       - name: Setup Python Virtual Environment
         run: python -m venv .venv
