@@ -341,6 +341,17 @@ ol {
     line-height: 1.75;
 }
 
+/* A quieter, off-the-clock note. Sits under the prose it belongs to. */
+.aside {
+    max-width: 68ch;
+    margin: 1.25rem 0 0;
+    padding-left: 0.9rem;
+    border-left: 2px solid var(--mlh-yellow-dim);
+    color: var(--fg-dim);
+    font-size: 0.9375rem;
+    line-height: 1.7;
+}
+
 /* ==========================================================================
    Rail — shared by Experience and Education
    ========================================================================== */
