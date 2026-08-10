@@ -1,75 +1,119 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "base.html" %}
 
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta property="og:title" content="Personal Portfolio">
-    <meta property="og:description" content="My Personal Portfolio">
-    <meta property="og:url" content="{{ url }}">
-
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
-        rel="stylesheet">
-
-    <link lang='sass' rel="stylesheet" href="./static/styles/main.css">
-    <link rel='icon' href='./static/img/favicon.ico' type='image/x-icon' />
-    <title>{{ title }}</title>
-</head>
-
-<body>
-    <header class="nav-bar">
-        <div class="nav-content">
-            <a href="/">
-                <div class="nav-logo">
-                    <img src="./static/img/logo.svg" />
-                </div>
-            </a>
-            <nav class="nav-links">
-                {% for page in pages %}
-                <a href="{{ page.url }}">{{ page.name }}</a>
-                {% endfor %}
-            </nav>
-        </div>
-    </header>
-
-    <div class="profile">
-        <div id="profile-picture" class="profile-picture">
-            <img src="./static/img/logo.jpg">
-        </div>
-        <h1>{{ title }}</h1>
+{% block content %}
+<section class="hero">
+    <div>
+        <div class="hero-mark" aria-hidden="true"><span></span><span></span><span></span></div>
+        <h1 class="hero-name">{{ title }}</h1>
+        <p class="hero-role">production engineering &middot; embedded systems &middot; low-level optimization</p>
     </div>
+    <img class="hero-portrait" src="{{ url_for('static', filename='img/logo.jpg') }}"
+         alt="{{ title }}" width="128" height="128" decoding="async">
+</section>
 
-    <section class="about">
-        <h2>About Me</h2>
-        <p>I specialize in embedded systems, low-level optimization, and building
-            stupid things that fill my bizarre software needs. If it has a processor,
-            I can probably run it. If there's a good idea, I can probably make it come true.</p>
-    </section>
+<!-- Every entry below is what actually serves this page. Keep it honest. -->
+<div class="stack-strip">
+    <span class="stack-label">stack</span>
+    <span class="stack-item">python 3.9</span>
+    <span class="stack-item">flask</span>
+    <span class="stack-item">peewee</span>
+    <span class="stack-item">mariadb</span>
+    <span class="stack-item">docker</span>
+    <span class="stack-item">nginx</span>
+    <span class="stack-item">let's encrypt</span>
+    <span class="stack-item">github actions</span>
+</div>
 
-    <section class="experience">
-        <h2>Work Experience</h2>
-        <ul>
-            {% for job in experiences %}
-            <li>
-                <strong>{{ job.role }}</strong> — {{ job.org }} ({{ job.period }})
-                {% if job.detail %}<span>{{ job.detail }}</span>{% endif %}
-            </li>
-            {% endfor %}
-        </ul>
-    </section>
+<section class="section">
+    <div class="section-head">
+        <span class="section-num">01</span>
+        <h2 class="section-label">About Me</h2>
+    </div>
+    <p class="prose">I specialize in embedded systems, low-level optimization, and building
+        stupid things that fill my bizarre software needs. If it has a processor,
+        I can probably run it. If there's a good idea, I can probably make it come true.</p>
+</section>
 
-    <section class="education">
-        <h2>Education</h2>
-        <ul>
-            {% for school in education %}
-            <li>
-                <strong>{{ school.degree }}</strong> — {{ school.org }} ({{ school.period }})
-            </li>
-            {% endfor %}
-        </ul>
-    </section>
-</body>
-</html>
+<section class="section">
+    <div class="section-head">
+        <span class="section-num">02</span>
+        <h2 class="section-label">Work Experience</h2>
+    </div>
+    <ol class="rail">
+        {% for job in experiences %}
+        <li class="rail-item">
+            <div class="rail-date">{{ job.period }}</div>
+            <div class="rail-body">
+                <h3 class="rail-role">{{ job.role }}</h3>
+                <div class="rail-org">{{ job.org }}</div>
+                {% if job.detail %}<p class="rail-detail">{{ job.detail }}</p>{% endif %}
+            </div>
+        </li>
+        {% endfor %}
+    </ol>
+</section>
+
+<section class="section">
+    <div class="section-head">
+        <span class="section-num">03</span>
+        <h2 class="section-label">Education</h2>
+    </div>
+    <ol class="rail">
+        {% for school in education %}
+        <li class="rail-item">
+            <div class="rail-date">{{ school.period }}</div>
+            <div class="rail-body">
+                <h3 class="rail-role">{{ school.degree }}</h3>
+                <div class="rail-org">{{ school.org }}</div>
+            </div>
+        </li>
+        {% endfor %}
+    </ol>
+</section>
+
+<section class="section">
+    <div class="section-head">
+        <span class="section-num">04</span>
+        <h2 class="section-label">Capabilities</h2>
+    </div>
+    <!-- REVIEW ME: inferred from the About copy and this repo's stack. Edit to taste. -->
+    <div class="skill-grid">
+        <div class="skill-cell">
+            <div class="skill-domain">Systems &amp; Embedded</div>
+            <ul>
+                <li>Embedded firmware</li>
+                <li>Low-level optimization</li>
+                <li>Arduino</li>
+                <li>Hardware bring-up</li>
+            </ul>
+        </div>
+        <div class="skill-cell">
+            <div class="skill-domain">Infrastructure &amp; Ops</div>
+            <ul>
+                <li>Docker &amp; Compose</li>
+                <li>nginx / reverse proxy</li>
+                <li>TLS &amp; Let's Encrypt</li>
+                <li>CI with GitHub Actions</li>
+            </ul>
+        </div>
+        <div class="skill-cell">
+            <div class="skill-domain">Languages</div>
+            <ul>
+                <li>Python</li>
+                <li>C / C++</li>
+                <li>SQL</li>
+                <li>Bash</li>
+            </ul>
+        </div>
+        <div class="skill-cell">
+            <div class="skill-domain">Tooling</div>
+            <ul>
+                <li>Flask</li>
+                <li>MariaDB / SQLite</li>
+                <li>Git</li>
+                <li>Blender</li>
+            </ul>
+        </div>
+    </div>
+</section>
+{% endblock %}
